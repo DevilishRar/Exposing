@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tribute to DevilishRak</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Supreme&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Supreme&display=swap');
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Supreme', sans-serif;
+      color: #fff;
+      position: relative;
+    }
+
+    body {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0.5);
+    }
+
+    body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      border: 3px solid rgba(0, 0, 0, 0.5);
+    }
+
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    #main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    #frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 400px;
+      width: 400px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 50px;
+    }
+
+    #frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    #content {
+      background: rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 20px;
+      max-width: 80%;
+      margin: 0 auto;
+      overflow-y: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-family: 'Supreme', sans-serif;
+    }
+
+    .proof-section, .mod-proof-section {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .proof-section img, .mod-proof-section img {
+      max-width: 200px;
+      max-height: 200px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 10px;
+      margin: 10px;
+      cursor: pointer;
+    }
+
+    .appeal-text {
+      max-width: 80%;
+      margin: 0 auto;
+      text-align: left;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      font-family: 'Supreme', sans-serif;
+    }
+
+    .appeal-text p {
+      margin-bottom: 1rem;
+    }
+
+    #snow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background-color: transparent;
+      background-image: url('https://4.bp.blogspot.com/-RGdg1HwjcN0/V0MfveH5tnI/AAAAAAAAV9U/JuZAFpkJmHkhrLHTY3Nzt--f1_D4QUDRACLcB/s1600/s1.png'), url('https://3.bp.blogspot.com/-lLYG_aPYaWI/V0MfvZui2cI/AAAAAAAAV9Q/ivLLay21G6IKLLGEI-bHgpzmPRHFubhwgCLcB/s1600/s2.png'), url('https://3.bp.blogspot.com/-mPW9Z5fvV5w/V0MfvZ1kmnI/AAAAAAAAV9Y/qU7_F2J0XP4bXNi3rIyV55Y1z9RyTRoqQCLcB/s1600/s3.png');
+      -webkit-animation: snow 12s linear infinite;
+      -moz-animation: snow 12s linear infinite;
+      -ms-animation: snow 12s linear infinite;
+      animation: snow 12s linear infinite;
+    }
+
+    @keyframes snow {
+      0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+      50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+      100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 3;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-content {
+      margin: 5% auto;
+      display: block;
+      max-width: 80%;
+      border-radius: 20px;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starCanvas"></canvas>
+  <div id="snow"></div>
+  <div id="main-container">
+    <div id="frame">
+      <img src="body.png" alt="Minecraft Skin" id="skin">
+    </div>
+    <h1>Banned on (13/06/2024)</h1>
+    <h2>IGN: DevilishRak</h2>
+    <div id="content">
+      <div class="section-title">Proof of False Ban</div>
+      <div class="proof-section">
+        <img src="image.png" alt="Screenshot 1">
+        <img src="image1.png" alt="Screenshot 2">
+        <img src="image3.png" alt="Screenshot 3">
+        <img src="image4.png" alt="Screenshot 4">
+        <img src="image5.png" alt="Screenshot 5">
+        <img src="image6.png" alt="Screenshot 6">
+      </div>
+      <div class="section-title">Mod's Evidence</div>
+      <div class="mod-proof-section">
+        <img src="SPOILER_Predatory.png" alt="Mod's Evidence Screenshot">
+      </div>
+      <div class="section-title">My Defense</div>
+      <div class="appeal-text">
+        <p><strong>I always thought that saying "game is game" was just related to video games. I didn't really grasp why it was seen as a problem. I heard it somewhere before. Wasn’t exactly sure of its meaning.</strong></p>
+        <p><strong>The expression "game is game" is commonly used within the gaming community. Thats how I used it in my context. My intention was never to cause any harm or offend anyone.</strong></p>
+
+        <p><strong>Unfortunately the moderator GreyHashira, who volunteers didn't take into account all the information before deciding to ban me.</strong></p>
+
+        <p><strong>GreyHashira only looked at one screenshot, out of context. Based the ban on that without reviewing the conversation or understanding the full context in which my statement was made. This was a mistake because other screenshots clearly demonstrate that there was no intent behind what I said.</strong></p>
+
+        <p><strong>As someone whos committed to being a member of the community I've always followed the guidelines. Worked towards creating a welcoming environment for everyone. My words were misunderstood. The decision to ban me seemed rushed without an investigation.</strong></p>
+
+        <p><strong>I firmly believe that if all evidence had been carefully examined by the moderator they would have realized that my actions didn't justify a ban.</strong></p>
+
+        <p><strong>I kindly ask for my case to be re evaluated and, for all evidence to be thoroughly reviewed. I believe this will demonstrate that the ban was unwarranted.</strong></p>
+
+        <p><strong>Fairness and openness play a role, in fostering trust among gamers. I trust that this appeal will result in a fair decision.</strong></p>
+
+        <p><strong>I appreciate you taking the time to review my appeal. I am hopeful, for your empathy and a favorable outcome.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage">
+    </div>
+  </div>
+
+  <!-- Embedded YouTube Video -->
+  <iframe width="1" height="1" src="https://www.youtube.com/embed/_L8OpYplFNg?autoplay=1&controls=0&loop=1&playlist=_L8OpYplFNg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+  <script>
+    // Resizing frame to fit the body.png
+    window.onload = function() {
+      const frame = document.getElementById('frame');
+      const img = document.getElementById('skin');
+
+      function resizeFrame() {
+        const imgRatio = img.naturalWidth / img.naturalHeight;
+        const frameRatio = frame.clientWidth / frame.clientHeight;
+
+        if (imgRatio > frameRatio) {
+          img.style.width = '100%';
+          img.style.height = 'auto';
+        } else {
+          img.style.width = 'auto';
+          img.style.height = '100%';
+        }
+      }
+
+      resizeFrame();
+      window.addEventListener('resize', resizeFrame);
+    };
+
+    // Modal functionality
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeModal = document.getElementsByClassName("close")[0];
+
+    document.querySelectorAll('.proof-section img, .mod-proof-section img').forEach(img => {
+      img.onclick = function() {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+      };
+    });
+
+    closeModal.onclick = function() {
+      modal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>
